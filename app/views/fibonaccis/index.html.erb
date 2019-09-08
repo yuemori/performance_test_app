@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Fibonaccis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fibonaccis.each do |fibonacci| %>
+      <tr>
+        <td><%= fibonacci.number %></td>
+        <td><%= link_to 'Show', fibonacci %></td>
+        <td><%= link_to 'Edit', edit_fibonacci_path(fibonacci) %></td>
+        <td><%= link_to 'Destroy', fibonacci, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fibonacci', new_fibonacci_path %>

@@ -1,0 +1,22 @@
+<%= form_with(model: fibonacci, local: true) do |form| %>
+  <% if fibonacci.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fibonacci.errors.count, "error") %> prohibited this fibonacci from being saved:</h2>
+
+      <ul>
+      <% fibonacci.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :number %>
+    <%= form.number_field :number %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
