@@ -9,6 +9,11 @@ class Fibonacci < ApplicationRecord
     return   if n < 0
     return n if n < 2
 
-    calculate(n - 1) + calculate(n - 2)
+    a = 0
+    b = 1
+
+    n.times { a, b = b, a + b }
+
+    a
   end
 end
