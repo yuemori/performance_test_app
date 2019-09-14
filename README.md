@@ -1,24 +1,87 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## demo1: application demo
 
-Things you may want to cover:
+```
+git checkout demo1
+rails s
 
-* Ruby version
+open http://localhost:3000/fibonaccis
+```
 
-* System dependencies
+```ruby
+# app/models/fibonacci.rb
+class Fibonacci < ApplicationRecord
+  def result
+    calculate(number)
+  end
 
-* Configuration
+  private
 
-* Database creation
+  def calculate(n) # bad performance method
+    return   if n < 0
+    return n if n < 2
 
-* Database initialization
+    calculate(n - 1) + calculate(n - 2)
+  end
+end
+```
 
-* How to run the test suite
+### improve performance
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+git checkout improve-performance
+git show
+```
 
-* Deployment instructions
+```diff
+@@ -9,6 +9,11 @@ class Fibonacci < ApplicationRecord
+     return   if n < 0
+     return n if n < 2
 
-* ...
+-    calculate(n - 1) + calculate(n - 2)
++    a = 0
++    b = 1
++
++    n.times { a, b = b, a + b }
++
++    a
+   end
+ end
+```
+
+## demo2: how to benchmarking and profiling
+
+```
+git checkout demo2
+
+# check stackprof configuration
+cat ./config/initializers/stackprof.rb
+
+# access localhost:3000/sibonaccis/1 and run:
+bundle exec stackprof tmp/stackprof-wall-xxxxx-xxxxxxxxxx.dump
+bundle exec stackprof-webnav -f tmp/stackprof-wall-xxxxx-xxxxxxxxxx.dump
+
+open http://localhost:9292
+```
+
+### improve performance
+
+```
+git checkout improve-performance2
+
+# access localhost:3000/sibonaccis/1 and run:
+bundle exec stackprof tmp/stackprof-wall-xxxxx-xxxxxxxxxx.dump
+bundle exec stackprof-webnav -f tmp/stackprof-wall-xxxxx-xxxxxxxxxx.dump
+
+open http://localhost:9292
+```
+
+## demo3: performance spec
+
+```
+git checkout demo3
+
+vi spec/performances/fibonacci_spec.rb
+vi spec/support/matchers/performance.rb
+```
